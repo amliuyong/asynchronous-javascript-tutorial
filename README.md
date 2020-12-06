@@ -229,9 +229,9 @@ function askThirdDealer() {
 
 // Invoke these 3 functions in parallel
 Promise.all([
-    askFirstDealer(), 
-    askSecondDealer(), 
-    askThirdDealer()
+    askFirstDealer().catch(error => { return error }), 
+    askSecondDealer().catch(error => { return error }), 
+    askThirdDealer().catch(error => { return error })
 ])
 .then(prices => {
     console.log(prices);
