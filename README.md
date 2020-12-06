@@ -254,3 +254,75 @@ Promise.race(
     
 ```
 
+
+## async function - wrap a function into a promise
+
+```javascript
+
+// If you return a non-promise value from an async function,
+// JavaScript will automatically wrap it into a promise.
+async function f() {
+    return 'Hello World';
+}
+
+console.log(f() instanceof Promise === true);
+
+// If you return a promise from an async function,
+// JavaScript will not make any transformations on it.
+async function f() {
+    return new Promise((resolve, reject) => {
+        setTimeout(() => resolve(true), 5000);
+    });
+}
+
+console.log(f() instanceof Promise === true);
+
+// you can also return a rejected promise from this function.
+async function f() {
+    return Promise.reject(404);
+}
+
+```
+
+## async - await
+
+```javascript
+
+function getSpecificNumber() {
+	return new Promise((resolve, reject) => {
+		setTimeout(() => resolve(42), 2000);
+	});
+}
+
+// There is a waiting time of 2 seconds
+// before this number gets printed to the console.
+async function f() {
+	const randomNumber = await getSpecificNumber();
+	console.log(randomNumber);
+}
+
+
+// This is the same as above
+function f() {
+	getSpecificNumber()
+		.then(randomNumber => console.log(randomNumber));
+}
+
+////////// another example use async/await
+
+// Function using promise like syntax (.then)
+function getRandomDogImage() {
+	fetch('https://dog.ceo/api/breeds/image/random')
+	    .then(response => response.json())
+	    .then(value => console.log(value.message));
+}
+
+// The same function using async await syntax
+async function getRandomDogImage() {
+	let response = await fetch('https://dog.ceo/api/breeds/image/random');
+	value = await response.json();
+	console.log(value.message);
+}
+
+
+```
