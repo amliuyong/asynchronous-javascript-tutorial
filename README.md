@@ -171,5 +171,20 @@ getUsers()
 connection.end();
 
 ```
+### chaining-promises
+```javascript
+calculateSquare(1)
+    .then(value => {
+        console.log(value);
+        return calculateSquare(2);
+    })
+    .then(value2 => {
+        console.log(value2);
+    }, reason => {
+        console.log('error happened: ' + reason);
+    });
+    
+```    
+    
 
 
