@@ -52,8 +52,22 @@ const myPromise = new Promise(funciton(resolve, reject) {
 - Status
 
    pending
+   
    fulfilled
+   
    rejected
+
+
+- How to Promise
+
+```javascript
+
+myPromise.then(value => {
+    console.log('This is inside onFulfilled function');
+});
+
+```
+
 
 
 
