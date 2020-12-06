@@ -47,6 +47,11 @@ describe('calculateSquare', function () {
 const myPromise = new Promise(funciton(resolve, reject) {
     resolve("value");
 });
+
+const resolvedPromise = Promise.resolve(anyValue)
+
+const rejectedPromise = Promise.reject(new Error('Error'));
+
 ```
 
 ### Status
@@ -64,7 +69,9 @@ const myPromise = new Promise(funciton(resolve, reject) {
 
 myPromise.then(value => {
     console.log('This is inside onFulfilled function');
-});
+}).catch(function (error) {
+        console.log(error);
+   });
 
 ```
 
@@ -185,6 +192,46 @@ calculateSquare(1)
     });
     
 ```    
-    
 
+
+### Convert any value to promise
+
+```javascript
+
+const resolvedPromise = Promise.resolve(anyValue)
+
+const rejectedPromise = Promise.reject(anyValue);
+
+
+```
+### Promise.all() - executing promises in parallel
+
+```javascript
+// Declare 3 functions which imitate the Dealer API
+function askFirstDealer() {
+    return new Promise((resolve, reject) => {
+        setTimeout(() => resolve(8000), 3000);
+    });
+}
+function askSecondDealer() {
+    return new Promise((resolve, reject) => {
+        setTimeout(() => resolve(12000), 5000);
+    });
+}
+function askThirdDealer() {
+    return new Promise((resolve, reject) => {
+        setTimeout(() => resolve(10000), 8000);
+    });
+}
+
+// Invoke these 3 functions in parallel
+Promise.all([
+    askFirstDealer(), 
+    askSecondDealer(), 
+    askThirdDealer()
+])
+.then(prices => {
+    console.log(prices);
+});
+```
 
