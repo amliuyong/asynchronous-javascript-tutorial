@@ -391,3 +391,83 @@ async function inParallel() {
 inParallel()
 
 ```
+
+
+## test Promise
+
+- Dependencies
+
+```
+"devDependencies": {
+    "chai": "^4.2.0",
+    "chai-as-promised": "^7.1.1",
+    "mocha": "^6.2.2"
+  }
+  
+```
+
+```javascript
+
+const calculateSquare = require('../src/calculate-square.js');
+const chai = require('chai');
+const chaiAsPromised = require('chai-as-promised');
+chai.use(chaiAsPromised);
+
+const expect = chai.expect;
+
+describe('calculateSquare with multiple return statements', function() {
+    // This won't work. You can not have multiple return statements
+    it('should resolve with number 4 if passed number 2', function () {
+        return expect(calculateSquare(2)).to.eventually.be.above(5);
+        return expect(calculateSquare(2)).to.eventually.be.equal(4);
+    })    
+});
+
+describe('calculateSquare with multiple notify calls', function() {
+    // This also won't work. You can not call notify multiple times in 1 test case
+    it('should resolve with number 4 if passed number 2', function (done) {
+        expect(calculateSquare(2)).to.eventually.be.above(5).notify(done);
+        expect(calculateSquare(2)).to.eventually.be.equal(4).notify(done);
+    })
+});
+
+describe('calculateSquare with then method', function() {
+    // This will work. 
+    it('should resolve with number 4 if passed number 2', function () {
+        return calculateSquare(2).then(
+            result => {
+                expect(result).to.be.above(3);
+                expect(result).to.be.equal(4);
+            });
+    })
+});
+
+describe('calculateSquare with catch method', function () {
+    // This will also work. 
+    it('should resolve with number 4 if passed number 2', function () {
+        return calculateSquare('string').catch(
+            reason => {
+                expect(reason).to.not.equal(null);
+                expect(reason.message).to.equal('Argument of type number is expected');
+            });
+    })
+});
+
+
+describe('calculateSquare using return statement', function() {
+    // Setting timeout for all test cases inside this describe function
+    this.timeout(4000);
+
+    it('should resolve with number 4 if passed number 2', function () {
+        return expect(calculateSquare(2)).to.eventually.be.equal(4);
+    });
+    
+    it('should resolve with 9 if passed 3', function () {
+        return expect(calculateSquare(3)).to.eventually.be.equal(9);
+    });
+});
+
+
+
+```
+
