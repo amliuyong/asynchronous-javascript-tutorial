@@ -41,7 +41,7 @@ describe('calculateSquare', function () {
 
 ## Promise
 
-- Create
+### Create
 ```javascript
 
 const myPromise = new Promise(funciton(resolve, reject) {
@@ -49,7 +49,7 @@ const myPromise = new Promise(funciton(resolve, reject) {
 });
 ```
 
-- Status
+### Status
 
    pending
    
@@ -58,7 +58,7 @@ const myPromise = new Promise(funciton(resolve, reject) {
    rejected
 
 
-- How to Promise
+### How to use Promise
 
 ```javascript
 
@@ -67,6 +67,8 @@ myPromise.then(value => {
 });
 
 ```
+
+### how-to-avoid-callback-hell 
 
 ```javascript
 
