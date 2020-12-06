@@ -204,7 +204,10 @@ const rejectedPromise = Promise.reject(anyValue);
 
 
 ```
-### Promise.all() - executing promises in parallel
+### executing promises in parallel
+
+- Promise.all() 
+- Promise.race()
 
 ```javascript
 // Declare 3 functions which imitate the Dealer API
@@ -233,5 +236,21 @@ Promise.all([
 .then(prices => {
     console.log(prices);
 });
+
+
+
+// Promise.race takes an array of values as an argument.
+Promise.race(
+    [askJohn(), askEugene(), askSusy()]
+)
+.then(value => {
+        // Unlike Promise.all, We have only 1 value here,
+        // and it is the result of the fastest promise in the array.
+        console.log(value)
+    })
+.catch(reason => {
+        console.log('Rejected: ' + reason)
+    });
+    
 ```
 
