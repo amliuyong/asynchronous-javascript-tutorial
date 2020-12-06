@@ -254,9 +254,9 @@ Promise.race(
     
 ```
 
-## async - await
+## Async - Await
 
-### async function - wrap a function into a promise
+### async - wrap a function into a promise
 
 ```javascript
 
